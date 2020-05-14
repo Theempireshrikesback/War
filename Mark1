@@ -1,0 +1,40 @@
+import random
+my_old_score = 0
+my_score = my_old_score
+your_old_score = 0
+your_score = your_old_score
+list_of_suits = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ]
+list_of_faces = list(range(1,14))
+for y in list_of_suits:
+    for x in list_of_faces:
+        list_of_cards = ' %s of %s ' % ( x, y )
+        card_value = int(x)
+while my_score < 20 and your_score < 20:
+    your_suit = random.randint(0,3)
+    your_face = random.randint(0,12)
+    your_card = ( ' %s of %s ' % ( (list_of_faces[your_face]), (list_of_suits[your_suit])))
+    my_suit = random.randint(0,3)
+    my_face = random.randint(0,12)
+    my_card = ( ' %s of %s ' % ( (list_of_faces[my_face]), (list_of_suits[my_suit])))
+    print( 'Your Card: %s of %s ' % ( (list_of_faces[your_face]), (list_of_suits[your_suit])))
+    print( 'My Card: %s of %s ' % ( (list_of_faces[my_face]), (list_of_suits[my_suit])))
+    print(your_face)
+    print(my_face)
+    if my_face < your_face:
+        your_score = your_old_score + 1
+        your_old_score = your_score
+        print('You won the hand!')
+    elif my_face > your_face:
+        my_score = my_old_score + 1
+        my_old_score = my_score
+        print('You lost the hand')
+    elif my_face == your_face:
+        print('Tie')
+    print(list_of_cards)
+    print(' Your score: %s ' % (your_score))
+    print(' My score: %s ' % (my_score))
+if my_score == 20:
+    print(' You lost, better luck next time ' )
+elif your_score == 20:
+    print(' You won, congratulations!' )
+
