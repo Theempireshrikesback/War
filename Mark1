@@ -1,25 +1,67 @@
+#!/bin/python
+#####################################################
+# Created by BCD
+# A Python implementation of the card game "War"
+# Don't really expect this to be multi-player, ever
+# Might work towards a UI eventually to make it playable as opposed to a script
+# Although, there's not really a whole lot of "playing" when it comes to the card game, as it's just draw a card and compare w/ your opponent.
+
+# Basic rules of War:
+# 2 players
+# Standard deck of playing cards
+# The game starts with a shuffled deck being dealt out completely to the two players, so each has 26 cards to start.
+# Turns begin with an empty "playing field", and then each player reveals the top card from their stack
+# The two revealed cards are compared, the player who turned over the card with a higher value wins the turn and all of the cards in the playing field. 
+# Won cards are placed in a separate stack.
+# When the initial stack is depleted, a player then shuffels their won cards and stacks them face down to draw from for their following turns.
+# The game is over when a player no longer has cards to reveal.
+# In the event of a tie (all suits are considered equal):
+# Players play 3 cards each from their face down stack (the same that normal cards are revealed from) followed by one face up card.
+# The comparison is then made between the new face up cards (the 5th card played by each player that turn).
+# If a player doesn't have enough cards to play out the tie, their last available card is played face up.
+# In the event of a tie where a player cannot play a new face down card, their last face up card will be compared to the opponent's next face up card.
+
+# Import libraries and modules
 import random
+
+# Initiate vairables for score tracking
 my_old_score = 0
 my_score = my_old_score
 your_old_score = 0
 your_score = your_old_score
+
+# Building the deck of cards.
+# Probably exists as it's own library already
+# Probably deserves a class and/or it's own file in the project structure
+# Uses for loops to iterate through a list of suits and a range of 1-14 (includes 1, omits 14)
+# The numbers represent Ace - King
 list_of_suits = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ]
 list_of_faces = list(range(1,14))
 for y in list_of_suits:
     for x in list_of_faces:
         list_of_cards = ' %s of %s ' % ( x, y )
         card_value = int(x)
-while my_score < 20 and your_score < 20:
-    your_suit = random.randint(0,3)
-    your_face = random.randint(0,12)
-    your_card = ( ' %s of %s ' % ( (list_of_faces[your_face]), (list_of_suits[your_suit])))
+
+# Script to test the following:
+# Tracking scores of two players
+# Establishing a win condition, currently 20 wins
+# Using tuples of random numbers to generate card names
+# Using these tuples to "draw cards"
+# Playing a "turn" where currently random cards are compared
+
+while my_score < 20 and your_score < 20:       # While loop to track score and trigger states once the win condition is met
+    your_suit = random.randint(0,3)            # Random number to pick a suit 
+    your_face = random.randint(0,12)           # Random number for the face value of the card
+    your_card = ( ' %s of %s ' % ( (list_of_faces[your_face]), (list_of_suits[your_suit])))    # uses the above random numbers to populate a variable with the card name
     my_suit = random.randint(0,3)
     my_face = random.randint(0,12)
-    my_card = ( ' %s of %s ' % ( (list_of_faces[my_face]), (list_of_suits[my_suit])))
-    print( 'Your Card: %s of %s ' % ( (list_of_faces[your_face]), (list_of_suits[your_suit])))
-    print( 'My Card: %s of %s ' % ( (list_of_faces[my_face]), (list_of_suits[my_suit])))
-    print(your_face)
-    print(my_face)
+    my_card = ( ' %s of %s ' % ( (list_of_faces[my_face]), (list_of_suits[my_suit])))          # uses the above random numbers to populate a variable with the card name
+    print( 'Your Card: %s of %s ' % ( (list_of_faces[your_face]), (list_of_suits[your_suit]))) # Print out the card name using values from the vavirables above
+    print( 'My Card: %s of %s ' % ( (list_of_faces[my_face]), (list_of_suits[my_suit]))) # This line, same as the last line
+    print(your_face)                           # Sanity check to print the value from the original roll again
+    print(my_face)                             # Same
+
+# Begin Card compairson
     if my_face < your_face:
         your_score = your_old_score + 1
         your_old_score = your_score
